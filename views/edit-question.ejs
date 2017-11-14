@@ -1,0 +1,75 @@
+<div class="aw-container-wrap" ng-app="ediQuestionApp" ng-controller="editController">
+
+    <div class="container aw-publish">
+        <div class="row">
+            <div class="aw-content-wrap clearfix">
+                <div class="col-sm-12 col-md-9 aw-main-content">
+                    <ul class="nav nav-tabs aw-nav-tabs active">
+                        <h2 class="hidden-xs">
+                            <i class="fa fa-edit"></i>
+                            编辑
+                        </h2>
+                    </ul>
+                    <!--问题的主题-->
+                    <form name="editForm"  method="post" ng-submit="updateForm($event)">
+                        <div class="aw-mod aw-mod-publish">
+                            <div class="mod-body">
+                                <h3>问题的分类</h3>
+                                <div class="aw-publish-title">
+                                    <div >
+                                        <div id="question_id" class="hide"><%= question._id%></div>
+                                        <select ng-model="formData.category" name="category" class="form-control" style="width:50%;margin-bottom:10px;" data-value="<%=question.category%>" required>
+                                            <% categorys.forEach(function (category){%>
+                                            <option value="<%= category[0] %>" <%= question.category == category[0] ? 'selected': '' %>>
+                                                <%= category[1] %>
+                                            </option>
+                                            <% })%>
+                                        </select>
+                                    </div>
+                                </div>
+                                <h3>问题的标题</h3>
+                                <div class="aw-publish-title">
+                                    <div>
+                                        <input  type="text" name="title"  class="form-control"   required value="<%= question.title%>">
+                                        <div style="height:20px">
+                                            <div class="aw-publish-suggest-question hide">
+                                                <p class="text-color-999">你的问题可能已经有答案了..</p>
+                                                <ul class="aw-dropdown-list"></ul>
+                                            </div>
+                                            <span ng-cloak ng-show="editForm.title.$invalid && !editForm.title.$pristine" class="text-danger">
+                                                <i class="glyphicon glyphicon-info-sign"></i>问题的长度不能小于10个字符或者大于50个字符
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h3>问题补充:</h3>
+                                <div class="aw-mod aw-editor-box">
+                                    <div class="mod-head">
+                                        <textarea placeholder="问题支持markdown格式,请注意标记代码" id="question"><%= question.content%>
+                                        </textarea>
+                                    </div>
+                                    <div class="mod-body">
+                                        <div style="height:20px">
+                                            <span ng-cloak ng-show="isEmpty" class="text-danger" id="question_detail_message">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                                内容不能为空
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mod-footer clearfix">
+                                <input ng-disabled="editForm.$invalid || isEmpty" class="btn btn-large btn-success" type="submit" value="确认修改">
+                            </div>
+                            <!--<div style="height:34px;margin-top:20px">-->
+                                <!--<div ng-cloak id="errorbox" ng-show="error" class="alert text-center alert-danger">-->
+                                    <!--{{error}}-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

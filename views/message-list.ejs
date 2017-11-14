@@ -1,0 +1,74 @@
+<div class="aw-container-wrap" ng-app="messageApp"
+ng-controller="messageController">
+    <div class="container">
+        <div class="row">
+            <div class="aw-content-wrap clearfix">
+                <div class="col-sm-12 col-md-9 aw-main-content">
+                    <!--文章的检索-->
+                    <ul class="nav nav-tabs aw-nav-tabs active hidden-xs">
+                        <li><a href="#read" data-toggle="tab">已读消息</a></li>
+                        <li class="active"><a href="#no_read" data-toggle="tab">未读消息</a></li>
+                        <h2 class="hidden-xs"><i class="fa fa-bell-o"></i> 消息</h2>
+                    </ul>
+                    <!--文章的检索-->
+                    <!--文章列表-->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="no_read">
+                            <div class="aw-mod">
+                                <div class="mod-head">
+                                    <h3>
+                                        <button ng-click="allRead()" class="btn  btn-success">全部已读</button>
+                                    </h3>
+                                    <!--<h3>未读消息</h3>-->
+                                </div>
+                                <div class="mod-body">
+                                    <% if(no_read && no_read.length > 0){%>
+                                        <% no_read.forEach(function (message,index){ %>
+                                            <% if(message.type == 'at'){%>
+                                                 <% include public/unat %>
+                                            <% }else if(message.type =='reply'){%>
+                                                     <% include public/unreply %>
+                                       <%}else if(message.type =='comment'){%>
+                                    <% include public/uncomment %>
+                                    <%}%>
+                                        <%})%>
+                                    <% } else {%>
+                                     <p align="center">没有未读消息</p>
+                                     <% }%>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="read">
+                            <div class="aw-mod">
+                                <div class="mod-head">
+                                    <h3>已读消息</h3>
+                                </div>
+                                <div class="mod-body">
+                                    <% if(read && read.length > 0){%>
+                                    <% read.forEach(function (message,index){ %>
+                                    <% if(message.type == 'at'){%>
+                                    <% include public/at %>
+                                    <% }else if(message.type =='reply'){%>
+                                      <% include public/reply %>
+                                    <%}else if(message.type =='comment'){%>
+                                      <% include public/comment %>
+                                    <%}%>
+                                    <%})%>
+                                    <% } else {%>
+                                    <p align="center">没有已读的消息</p>
+                                    <% }%>
+                                </div>
+                                <ul class="fenye">
+                                    <% for(let a = 0;a < (all_no_read.length)/5 ;a++){%>
+                                     <li ng-click="unallRead(<%= a+1 %>)" class="" ><a id="<%= a+1 %>"><%= a+1 %></a>  </li>
+                                    <%   } %>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

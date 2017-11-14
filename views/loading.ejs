@@ -1,0 +1,67 @@
+<% if(loading.length >0){ %>
+<% loading.forEach(function (comment,inex) {%>
+<div class="aw-item">
+    <div class="mod-head">
+        <a class="anchor"></a>
+        <a class="aw-user-img aw-border-radius-5 pull-right" href="/user/<%= comment.author.name %>">
+            <img src="<%= comment.author.avatar %>">
+        </a>
+        <div class="title">
+            <p>
+                <%if(comment.comment_target_id){%>
+                <a class="aw-user-name"  name="<%= comment.author.name %>" href="/user/<%= comment.author.name %>"><%= comment.author.name %></a>
+                回复了
+                <a class="aw-user-name"  name="<%= comment.comment_target_id.name %>" href="/user/<%= comment.comment_target_id.name %>"><%= comment.comment_target_id.name %></a>
+                <%}else{ %>
+                <a class="aw-user-name"  name="<%= comment.author.name %>" href="/user/<%= comment.author.name %>"><%= comment.author.name %></a>
+                <%}%>
+            </p>
+        </div>
+    </div>
+    <div class="mod-body clearfix">
+        <div class="markitup-box">
+            <%-  markdown(comment.content) %>
+            <span>
+                   <span class="operate">
+                        <a class="agree">
+                            <i class="fa fa-thumbs-o-up"></i>
+                            <b class="count">0</b>
+                        </a>
+                        <a class="disagree">
+                            <i class="fa fa-thumbs-o-down"></i>
+                        </a>
+                    </span>
+            <span class="operate">
+                        <a class="aw-show-comment">
+                            回复
+                        </a>
+                    </span>
+            </span>
+            <span class="text-color-999 pull-right">
+                   <%= comment.create_time_ago() %>
+                    </span>
+        </div>
+    </div>
+    <div class="mod-footer foter " style="margin-top: 10px">
+        <div class="meta clearfix">
+        </div>
+        <form class="hide"  action="/<%= comment.question_id._id%>/comment" style="background:none;padding:0px 0px 10px 0">
+            <div class="aw-comment-box-main">
+                <input type="hidden" name="reply_id" value="<%= comment.reply_id%>">
+                <input type="hidden" name="comment_target_id" value="<%= comment.author._id%>">
+                <div class="comment_markdown " placeholder="回复某个人" contenteditable disabled></div>
+                <div class="aw-comment-box-btn" style="display: block;">
+                            <span class="pull-right">
+                                <input value="评论" type="submit" disabled class="commentBtn commentBtn-two  btn btn-default btn-success comment">
+                                </input>
+                                <a class="btn btn-primary close-comment-box">
+                                    取消
+                                </a>
+                            </span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<% }) %>
+<% } %>

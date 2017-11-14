@@ -1,0 +1,61 @@
+<!--回复-->
+<%if(replies.length >0){%>
+<div class="aw-mod aw-question-comment">
+    <div class="mod-head">
+        <ul class="nav nav-tabs aw-nav-tabs active">
+            <h2 class="hidden-xs"><%= question.comment_num%>个回复</h2>
+        </ul>
+    </div>
+    <div class="mod-body aw-feed-list" id="reply">
+        <% replies.forEach(function (reply,index) {%>
+        <div class="aw-item" id="<%= reply._id%>" off="true">
+            <div class="mod-head">
+                <a class="anchor"></a>
+                <a class="aw-user-img aw-border-radius-5 pull-right" href="/user/<%= reply.author.name%>">
+                    <img src="<%= reply.author.avatar %>">
+                </a>
+                <div class="title">
+                    <p>
+                        <a class="aw-user-name" href="/user/<%= reply.author.name%>"><%= reply.author.name %></a><br>
+                        <span style="font-size: 12px ;color: #aaa"><%= reply.author.motto%></span>
+                    </p>
+                </div>
+            </div>
+            <div class="mod-body clearfix">
+                <div class="markitup-box">
+                   <%- markdown(reply.content) %>
+                </div>
+            </div>
+                    <div class="mod-footer">
+                        <div class="meta clearfix">
+                            <span class="text-color-999 pull-right"><%= reply.create_time_ago()%></span>
+                            <span class="operate">
+                                    <a class="agree" data-target="<%= reply._id%>">
+                                        <i class="fa fa-thumbs-o-up"></i>
+                                        <b class="count"><%= reply.likes.length %></b>
+                                    </a>
+                                    <a class="disagree">
+                                        <i class="fa fa-thumbs-o-down"></i>
+                                           <b class="count">0</b>
+                                    </a>
+                            </span>
+                            <span class="operate">
+                                                    <a class="aw-add-comment reply-comment"  data-num="<%=reply.comment_num%>" content="<%= reply.comment_num%>个评论">
+                                                        <i class="fa fa-commenting-o"></i>
+                                                        <%= reply.comment_num%>个评论
+                                                    </a>
+                                                </span>
+                </div>
+                <!--二级回复的DIV留在这里，以后再做-->
+                        <!--二级回复？？-->
+                        <% include aw-comment-reply %>
+            </div>
+            <!--回复-->
+
+        </div>
+       <% }) %>
+
+    </div>
+</div>
+<% }%>
+<!--回复-->

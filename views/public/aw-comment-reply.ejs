@@ -1,0 +1,25 @@
+<div class="aw-comment-box hide">
+    <div class="aw-comment-list" style="border-bottom:0;">
+        <div align="center" class="aw-padding10" style="border-bottom:1px solid #F5F5F5;">
+            <p><%= reply.comment_num %>条评论</p>
+        </div>
+        <div class="loading text-center" style="font-size:30px;line-height:50px;">
+            <i class="fa fa-spinner fa-pulse"></i>
+        </div>
+        <!--二级回复列表要插入的位置-->
+        <div class="add-comment-list"></div>
+        <button class="twoReply hide" data-id="<%= reply._id %>"  style="display: block;height: 50px; width: 90% ; margin: 0 auto; text-align:
+                    center;border: 2px solid #f3f3f3;background: #e8e8e8">加载更多</button>
+        <form action="/<%= question._id %>/comment" style="background:none;padding:10px 0px">
+            <input type="hidden" name="reply_id" value="<%= reply._id %>">
+            <input type="hidden" name="comment_target_id" value="">
+            <div class="aw-comment-box-main">
+                <div style="white-space: pre" class="comment_markdown pull-left public" placeholder="请写下你的评论..." contenteditable="true"></div>
+                <span class="pull-right">
+                    <input type="submit" value="评论" class="commentBtn btn btn btn-success commentBtn-one" disabled>
+                </span>
+                <div class="clearfix"></div>
+            </div>
+        </form>
+    </div>
+</div>
